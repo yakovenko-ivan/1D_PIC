@@ -9,7 +9,7 @@ def f100():
     for i in range(il, iu):
         f101(i)
     j = x[i] + 0.5
-    vo = vs[i]
+    vo = vx[i]
     vn = vo + a[j + 1]
     v1s = v1s + vn
     v2s = v2s + vn * vo

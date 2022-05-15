@@ -10,9 +10,9 @@ def accel(ilp, iup, q, m, t, p, ke, dx: float, dt: float, ael, iw, ng,  vn, vec:
     v1si = np.empty(shape=64, dtype=np.float64)
     v2si = np.empty(shape=64, dtype=np.float64)
     aai = np.empty(shape=64, dtype=np.float64)
-    vx = []
-    vy = []
-    x = []
+    vx = np.ndarray()
+    vy = np.ndarray()
+    x = np.ndarray()
     il = ilp
     iu = iup
 
@@ -25,7 +25,7 @@ def accel(ilp, iup, q, m, t, p, ke, dx: float, dt: float, ael, iw, ng,  vn, vec:
         tem = ae / ael
         for j in range(1, ngl):
             a[j] = a[j] * tem
-        ael = ae
+            ael = ae
     # ngp, grid points at i * dx ?
     if iw == 100:
         v1s = 0
