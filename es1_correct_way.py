@@ -23,6 +23,15 @@ def plotfvx(var_1, ins, vl, vu, qs, var_2):
     return a
 
 
+def histry():
+    a = 1
+    return a
+
+def last():
+    a = 1
+    return a
+
+
 if __name__ == '__main__':
     print('This is ES1 the program used for one-dimensional electrostatic problems solving')
     import argparse
@@ -102,7 +111,9 @@ if __name__ == '__main__':
     kes = np.empty(shape=(nth1, nspm))
     pxs = np.empty(shape=(nth2, nspm))
     nms = np.empty(shape=nspm)
-    mplot = mmax
+    # mplot = mmax
+    if mplot == 0:
+        mplot = mmax
     esem = np.empty(shape=(nth1, mmax))
     ms = np.empty(shape=nspm, dtype=float)
     qs = np.empty(shape=nspm, dtype=float)
@@ -139,7 +150,7 @@ if __name__ == '__main__':
             v2s = 0
             for i in range(il, iu):
                 j = int(x[i] + 0.5)
-                print(f'{j}, {type(j)}')
+                # print(f'{j}, {type(j)}')
                 vo = vx[i]
                 vn = vo + a[j + 1]
                 v1s = v1s + vn
@@ -200,27 +211,31 @@ if __name__ == '__main__':
         # here should be called function setv
         setv(ins[var_is], ins[var_is + 1] - 1,qs[var_is],  ms[var_is], ts[var_is], pxs[1, var_is])
 
+    def function_100(nsp, vmu):
+        vl = 0.0
+        vu = 0.0
+        plotxv(1, ins[nsp+1] - 1, vl, vu)
+        plotfvx(1, ins[2] - 1, vl, vu, qs[1], 32)
+        if ts[1] != 0:
+            pltvxy(1, ins[2] - 1, vmu)
+        # p = 0
+        # ke = 0
+        for _is in range(1, nsp):
+            p, ke = accle(ins[_is], ins[_is + 1] - 1, qs[_is], ms[_is], ts[_is], pxs[ith + 2,  _is], kes[ith + 1, _is])
+            p = p + pxs[ith + 2, _is]
+            ke = ke + kes[ith + 1, _is]
+        for _ in range(1, nsp):
+            move(ins[_], ins[_+1] - 1, qs[_])  # должна вернуть значение it
+            te = ke + ese[ith+1]
+        return
 
-    vl = 0.0
-    vu = 0.0
-    plotxv(1, ins[nsp+1] - 1, vl, vu)
-    plotfvx(1, ins[2] - 1, vl, vu, qs[1], 32)
-    if ts[1] != 0:
-        pltvxy(1, ins[2] - 1, vmu)
-    # p = 0
-    # ke = 0
-    for _is in range(1, nsp):
-        p, ke = accle(ins[_is], ins[_is + 1] - 1, qs[_is], ms[_is], ts[_is], pxs[ith + 2,  _is], kes[ith + 1, _is])
-        p = p + pxs[ith + 2, _is]
-        ke = ke + kes[ith + 1, _is]
-    for _ in range(1, nsp):
-        move(ins[_], ins[_+1] - 1, qs[_])
-        te = ke + ese[ith+1]
-    # вот тут уже нужен более професиональный подход
-    # if it < nt:
-    #     if ith == nth:
-    #         histry()
-    #     it = it + 1
-    #     time = it * dt
-    #     ith = it - ithl
-    #     fields(ith)
+    if it < nt:
+        if ith == nth:
+            histry()
+        it = it + 1
+        time = it * dt
+        ith = it - ithl
+        fields(ith)
+        function_100(nsp, vmu)
+    histry()
+    last()
