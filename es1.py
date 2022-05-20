@@ -1,9 +1,9 @@
-def init(ins, ins_1, ms, qs, ts, nms, rho0):
+def init(ins: int, ins_1: int, ms: float, qs: float, ts:float, nms: int, rho0:float):
     a = 1
     return a
 
 
-def setv(ins, ins_1, qs, ms, ts, pxs):
+def setv(ins: int, ins_1: int, qs: float, ms: float, ts: float, pxs: float):
     a = 1
     return a
 
@@ -13,12 +13,12 @@ def fields(var):
     return a
 
 
-def plotxv(var_1, ins, vl, vu):
+def plotxv(var_1, ins: int, vl: float, vu: float):
     a = 1
     return a
 
 
-def plotfvx(var_1, ins, vl, vu, qs, var_2):
+def plotfvx(var_1, ins: int, vl: flaot, vu: float, qs: float, var_2):
     a = 1
     return a
 
@@ -26,6 +26,7 @@ def plotfvx(var_1, ins, vl, vu, qs, var_2):
 def histry():
     a = 1
     return a
+
 
 def last():
     a = 1
@@ -108,8 +109,8 @@ if __name__ == '__main__':
     nspm = 3
     nth1, nth2, nspm1 = nth + 1, nnth + 2, nspm + 1
     ese = np.empty(shape=nth1)
-    kes = np.empty(shape=(nth1, nspm))
-    pxs = np.empty(shape=(nth2, nspm))
+    kes = np.empty(shape=(nth1, nspm), dtype=float)
+    pxs = np.empty(shape=(nth2, nspm), dtype=float)
     nms = np.empty(shape=nspm)
     # mplot = mmax
     if mplot == 0:
@@ -124,11 +125,11 @@ if __name__ == '__main__':
     ins = [1]
 
 
-    def accel(ilp, iup, q, m, t, p, ke) -> (float, float):
-        # accle(ins[_is], ins[_is + 1] - 1, qs[_is], ms[_is], ts[_is], pxs[ith + 2,  _is], kes[ith + 1, _is])
+    def accel(ilp: int, iup: int, q: float, m: float, t: float, p: float, ke: float) -> (float, float):
         import numpy as np
-        # This function is called to convert E to (q/m)E*dt^2/dx, called A, a computer variable. Advanced velocity one time
-        # step, using weighted E (or A). Calculate momentum and kinetic energy. Being repeated for each species.
+        # This function is called to convert E to (q/m)E*dt^2/dx, called A, a computer variable. Advanced velocity
+        # one time step, using weighted E (or A). Calculate momentum and kinetic energy. Being repeated for each
+        # species.
         a = np.empty(shape=64, dtype=np.float64)
         v1si = np.empty(shape=64, dtype=np.float64)
         v2si = np.empty(shape=64, dtype=np.float64)
